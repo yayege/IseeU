@@ -3,11 +3,10 @@
 #include <MFRC522.h>
 #include <Wire.h>
 
-#define RST_PIN 5 // Configurable, see typical pin layout above // was 9
-#define SS_PIN_1 53 // Configurable, see typical pin layout above // was 10
-#define SS_PIN_2 2 // Configurable, see typical pin layout above // was 8
-#define SS_PIN_3 3 // Configurable, see typical pin layout above
-#define SS_PIN_4 4 // Configurable, see typical pin layout above
+#define RST_PIN s 
+#define SS_PIN_2 2 
+#define SS_PIN_3 3 
+#define SS_PIN_4 4 
 
 #define NR_OF_READERS 4
 #define NR_OF_KEYES 4
