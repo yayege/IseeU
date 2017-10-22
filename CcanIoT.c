@@ -1,20 +1,4 @@
-*
-* NOTE: The library file MFRC522.h has a lot of useful info. Please read it.
-*
-* ----------------------------------------------------------------------------
-* Typical pin layout used:
-* -----------------------------------------------------------------------------------------
-* MFRC522 Arduino Arduino Arduino Arduino Arduino
-* Reader/PCD Uno Mega Nano v3 Leonardo/Micro Pro Micro
-* Signal Pin Pin Pin Pin Pin Pin
-* -----------------------------------------------------------------------------------------
-* RST/Reset RST 9 5 D9 RESET/ICSP-5 RST
-* SPI SS SDA(SS) 10 53 D10 10 10
-* SPI MOSI MOSI 11 / ICSP-4 51 D11 ICSP-4 16
-* SPI MISO MISO 12 / ICSP-1 50 D12 ICSP-1 14
-* SPI SCK SCK 13 / ICSP-3 52 D13 ICSP-3 15
-*
-*/
+
 #include <SPI.h>
 #include <MFRC522.h>
 #include <Wire.h>
@@ -58,8 +42,8 @@ String RFID_whitelist[] = {"b09b894d", "60f71b83", "e6a0227e", "10dc1783"}; // A
 String read_rfid;
 
 void setup() {
-    Serial.begin(9600); // Initialize serial communications with the PC
-    while (!Serial); // Do nothing if no serial port is opened (added for Arduinos based on ATMEGA32U4)
+    Serial.begin(9600); 
+    while (!Serial); 
     
     SPI.begin(); // Init SPI bus
     SPI.setClockDivider(SPI_CLOCK_DIV128);
@@ -73,7 +57,7 @@ void setup() {
     }
     
     for (uint8_t reader = 0; reader < NR_OF_READERS; reader++) {
-        mfrc522[reader].PCD_Init(ssPins[reader], RST_PIN); // Init each MFRC522 card
+        mfrc522[reader].PCD_Init(ssPins[reader], RST_PIN); 
         Serial.print(F("Reader "));
         Serial.print(reader);
         Serial.print(F(": "));
@@ -85,7 +69,7 @@ void setup() {
 
 
 
-// Convert card UID to string
+
 void dump_byte_array(byte *buffer, byte bufferSize) {
     read_rfid="";
     for (byte i = 0; i < bufferSize; i++) {
@@ -118,24 +102,24 @@ void loop() {
     
     int button1 = digitalRead(BUTTON);
     if(button1 == HIGH) {
-        // Activate RELAY_CH
+        
     }
     
-    // Ruler Pillar Light Function
+   
     if(reader1_triggered) {
-        // Activate RELAY_CH
+        
         digitalWrite(RELAY_CH[0], HIGH);
     }
     if(reader2_triggered) {
-        // Activate RELAY_CH
+        
         digitalWrite(RELAY_CH[1], HIGH);
     }
     if(reader3_triggered) {
-        // Activate RELAY_CH
+        
         digitalWrite(RELAY_CH[2], HIGH);
     }
     if(reader4_triggered) {
-        // Activate RELAY_CH
+        
         digitalWrite(RELAY_CH[3], HIGH);
     }
 }
@@ -147,28 +131,28 @@ void authenticate_Card(int reader_id, String uid) {
         if(uid == ok_RFID_reader1) {
             Serial.println("Authenticated Ruler 1");
             reader1_triggered = true;
-            // Light response handled in loop()
+           
         }
     }
     if(reader_id == 1) {
         if(uid == ok_RFID_reader2) {
             Serial.println("Authenticated Ruler 2");
             reader2_triggered = true;
-            // Light response handled in loop()
+           
         }
     }
     if(reader_id == 2) {
         if(uid == ok_RFID_reader3) {
             Serial.println("Authenticated Ruler 3");
             reader3_triggered = true;
-            // Light response handled in loop()
+            
         }
     }
     if(reader_id == 3) {
         if(uid == ok_RFID_reader4) {
             Serial.println("Authenticated Ruler 4");
             reader4_triggered = true;
-            // Light response handled in loop()
+            
         }
     }
     else {
@@ -178,7 +162,7 @@ void authenticate_Card(int reader_id, String uid) {
                     reader1_complete = true;
                     reader1_triggered = false;
                 }
-                // Turn off ruler lights
+               
                 
             }
             if(uid == ok_RFID_reader2) {
@@ -186,7 +170,7 @@ void authenticate_Card(int reader_id, String uid) {
                     reader2_complete = true;
                     reader2_triggered = false;
                 }
-                // Turn off ruler lights
+               
                 
             }
             if(uid == ok_RFID_reader3) {
@@ -194,7 +178,7 @@ void authenticate_Card(int reader_id, String uid) {
                     reader3_complete = true;
                     reader3_triggered = false;
                 }
-                // Turn off ruler lights
+                
                 
             }
             if(uid == ok_RFID_reader4) {
@@ -202,7 +186,7 @@ void authenticate_Card(int reader_id, String uid) {
                     reader4_complete = true;
                     reader4_triggered = false;
                 }
-                // Turn off ruler lights
+                
                 
             }
             
@@ -220,7 +204,7 @@ void resetPuzzle() {
     reader3_triggered = false;
     reader4_complete = false;
     reader4_triggered = false;
-    // Turn off ruler lights handled in loop() section
+    
 }
 
 
